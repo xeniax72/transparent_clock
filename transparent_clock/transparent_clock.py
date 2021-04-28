@@ -1,9 +1,5 @@
 ########################################################################################################################
 #
-# BUGS: al momento non risultano bugs...
-#
-########################################################################################################################
-#
 # TODO  1 - il metodo change_font non gestisce il grasseto, il corsivo ecc... ecc... ora è tutto grassetto... vedere
 #           se esiste un font dialog più completo di quello usato attualmente
 #
@@ -82,6 +78,7 @@ class TransparentClockClock(TransparentClockWidget):
         menu = QMenu(self)
         change_assets = menu.addMenu(TC_CONTEXT_MENU___CHANGE_APPEARANCE)
 
+        # recupera la lista di tutti i modi di apparire dell'orologio e prepara le voci di menu
         for conf_name in self.__appearances_manager.get_appearances_names():
             action = QAction(conf_name, change_assets)
             action.setCheckable(True)
@@ -129,8 +126,8 @@ class TransparentClockClock(TransparentClockWidget):
                 self.move(self.__current_appearance.x_pos, self.__current_appearance.y_pos)
 
     def open_save_appearance_dialog(self) -> None:
-        appearance_name, accepted = QInputDialog.getText(None, TC_SAVE_APPEARANCE_DIALOG___TITLE, TC_SAVE_APPEARANCE_DIALOG___INPUT,
-                                             text=self.__current_appearance.name)
+        appearance_name, accepted = QInputDialog.getText(self, TC_SAVE_APPEARANCE_DIALOG___TITLE, TC_SAVE_APPEARANCE_DIALOG___INPUT,
+                                                         text=self.__current_appearance.name)
         if accepted and appearance_name:
             self.__current_appearance.x_pos = self.x()
             self.__current_appearance.y_pos = self.y()
@@ -177,10 +174,10 @@ class TransparentClockClock(TransparentClockWidget):
         if accept:
             palette = self.__time_lbl.palette()
             color = palette.color(QPalette.Inactive, QPalette.WindowText)
-            color.setAlphaF(trans_dialog.text_alphaF)
+            color.setAlphaF(trans_dialog.text_alpha_f)
             palette.setColor(QPalette.Inactive, QPalette.WindowText, color)
             self.__time_lbl.setPalette(palette)
-            self.__current_appearance.font_alphaF = trans_dialog.text_alphaF
+            self.__current_appearance.font_alphaF = trans_dialog.text_alpha_f
 
 
 if __name__ == '__main__':
