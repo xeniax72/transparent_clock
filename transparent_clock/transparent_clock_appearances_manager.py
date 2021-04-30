@@ -63,7 +63,7 @@ class TransparentClockAppearancesManager:
 
 
 if __name__ == '__main__':
-    conf_manager = TransparentClockAppearancesManager("../datas/transparent_clock_appearances.json")
+    conf_manager = TransparentClockAppearancesManager("../data/transparent_clock_appearances.json")
     conf_manager.load_appearances()
 
     print(conf_manager.get_appearance("PyCharm"))
